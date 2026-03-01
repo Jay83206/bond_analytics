@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -77,7 +78,6 @@ ytm_max = st.sidebar.slider("Max YTM", 1, 20, 9)
 ytm_step = st.sidebar.selectbox("Step (bps) ", [50, 100, 200], index=1)
 
 # Build rate arrays
-import numpy as np
 coupon_rates = [round(r / 100, 4) for r in np.arange(coupon_min, coupon_max + 0.001, coupon_step / 100)]
 ytm_rates    = [round(r / 100, 4) for r in np.arange(ytm_min,    ytm_max    + 0.001, ytm_step    / 100)]
 
@@ -283,7 +283,7 @@ with tab2:
             name=f"Coupon {round(coupon*100,1)}%",
             line=dict(color=color, width=2.5),
             marker=dict(size=8),
-            hovertemplate="Coupon: " + f"{round(coupon*100,1)}%<br>YTM: %{x}%<br>Price: $%{y:,.2f}<extra></extra>",
+            hovertemplate=f"Coupon: {round(coupon*100,1)}%<br>YTM: %{{x}}%<br>Price: $%{{y:,.2f}}<extra></extra>",
         ))
     fig2.add_hline(y=face_value, line_dash="dash", line_color="red",
                    annotation_text=f"Par (${face_value:,})", annotation_position="right")
